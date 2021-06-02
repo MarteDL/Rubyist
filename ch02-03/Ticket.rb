@@ -1,16 +1,16 @@
 class Ticket
+  VENUES = ['Convention Center', 'Fairgrounds', 'Town Hall']
 
   attr_reader :date, :venue
   attr_accessor :price
 
   def initialize(venue, date)
-    @venue = venue
+    raise ArgumentError, "Unknown venue #{venue}" unless VENUES.include?(venue)
 
-    if date.match(/\d{4}-\d{2}-\d{2}/)
-      @date = date
-    else
-      puts "Please submit the date in the format 'yyyy-mm-dd'."
-    end
+    puts "Please submit the date in the format 'yyyy-mm-dd'." unless date.match(/\d{4}-\d{2}-\d{2}/)
+
+    @venue = venue
+    @date = date
   end
 
   # alternative to date.match:
@@ -19,5 +19,9 @@ class Ticket
 
   def discount(percent)
     @price = @price * (100 - percent) / 100.0
+  end
+
+  def self.most_expensive(*tickets)
+    tickets.max_by(&:price)
   end
 end

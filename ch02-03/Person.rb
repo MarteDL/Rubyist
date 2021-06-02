@@ -8,4 +8,8 @@ class Person
     puts "Returning the person's name"
     @name
   end
+  
+  def species
+    'Homo Sapiens'
+  end
 end
