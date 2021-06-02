@@ -1,7 +1,14 @@
 class Ticket
-  def initialize(venue, date)
+  def initialize(venue)
     @venue = venue
-    @date = date
+  end
+
+  def date=(date)
+    if date.match(/\d{4}-\d{2}-\d{2}/)
+      @date = date
+    else
+      puts "Please submit the date in the format 'yyyy-mm-dd'."
+    end
   end
 
   def date
@@ -20,24 +27,7 @@ class Ticket
     @price
   end
 
-  def event
-    "Author's reading"
+  def discount(percent)
+    @price = @price * (100 - percent) / 100.0
   end
-
-  def performer
-    'Mark Twain'
-  end
-
-  def seat
-    'Second Balcony, row J, seat 12'
-  end
-
 end
-
-th = Ticket.new("Town Hall", "2013-11-12")
-cc = Ticket.new("Convention Center", "2014-12-13")
-
-th.price = 63.00
-
-puts "The first is for a #{th.venue} event on #{th.date} and costs $#{format('%.2f', th.price)}."
-puts "The second is for a #{cc.venue} event on #{cc.date}."
